@@ -1,9 +1,12 @@
 var vows = require('vows'),
         assert = require('assert'),
-        moose = require("../../../lib"),
+        comb = require("comb"),
+        moose = require("index"),
         Mysql = moose.adapters.mysql,
         Client = Mysql.client;
 
+
+var ret = (module.exports = exports = new comb.Promise());
 var suite = vows.describe("Mysql Client");
 
 suite.addBatch({
@@ -34,4 +37,4 @@ suite.addBatch({
     }
 });
 
-suite.run({reporter : require("vows/reporters/spec")});
+suite.run({reporter : require("vows/reporters/spec")}, comb.hitch(ret, "callback"));

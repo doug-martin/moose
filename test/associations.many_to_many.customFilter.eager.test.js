@@ -1,10 +1,11 @@
 var vows = require('vows'),
-        assert = require('assert'),
-        helper = require("./data/manyToMany.customFilter.eager.models"),
-        moose = require("../lib"),
-        comb = require("comb"),
-        hitch = comb.hitch;
+    assert = require('assert'),
+    helper = require("./data/manyToMany.customFilter.eager.models"),
+    moose = require("index"),
+    comb = require("comb"),
+    hitch = comb.hitch;
 
+var ret = (module.exports = exports = new comb.Promise());
 var gender = ["M", "F"];
 helper.loadModels().then(function() {
     var Company = moose.getModel("company"), Employee = moose.getModel("employee"), CompanyEmployee = moose.getModel("companyEmployee");
@@ -90,16 +91,12 @@ helper.loadModels().then(function() {
 
                 }
             }
-        },
-
-        teardown : function() {
-            helper.dropModels();
         }
-
     });
 
 
-    suite.run({reporter : require("vows/reporters/spec")});
-
-});
+    suite.run({reporter : require("vows/reporters/spec")}, function(){
+        helper.dropModels().then(comb.hitch(ret, "callback"), comb.hitch(ret, "errback"))
+    });
+}, comb.hitch(ret, "errback"));
 

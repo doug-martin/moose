@@ -1,10 +1,11 @@
 var vows = require('vows'),
-        assert = require('assert'),
-        moose = require("../../lib"),
-        comb = require("comb"),
-        hitch = comb.hitch,
-        helper = require("../data/plugins.models");
+    assert = require('assert'),
+    moose = require("index"),
+    comb = require("comb"),
+    hitch = comb.hitch,
+    helper = require("../data/plugins.models");
 
+var ret = (module.exports = exports = new comb.Promise());
 helper.loadDefaultModels().then(function() {
     Employee = moose.getModel("employee");
     var suite = vows.describe("TimeStampPlugin default");
@@ -51,11 +52,12 @@ helper.loadDefaultModels().then(function() {
                     assert.isNotNull(topic.updated);
                     assert.instanceOf(topic.updated, Date);
                     assert.notDeepEqual(topic.updated, topic.created);
-                    helper.dropDefaultModels();
                 }
             }
         }
     });
 
-    suite.run({reporter : require("vows/reporters/spec")});
-});
+    suite.run({reporter : require("vows/reporters/spec")}, function() {
+        helper.dropDefaultModels().then(comb.hitch(ret, "callback"), comb.hitch(ret, "errback"))
+    });
+}, comb.hitch(ret, "errback"));

@@ -1,10 +1,11 @@
 var vows = require('vows'),
-        assert = require('assert'),
-        helper = require("./data/manyToOne.eager.models"),
-        moose = require("../lib"),
-        comb = require("comb"),
-        hitch = comb.hitch;
+    assert = require('assert'),
+    helper = require("./data/manyToOne.eager.models"),
+    moose = require("index"),
+    comb = require("comb"),
+    hitch = comb.hitch;
 
+var ret = (module.exports = exports = new comb.Promise());
 var gender = ["M", "F"];
 helper.loadModels().then(function() {
     var Company = moose.getModel("company"), Employee = moose.getModel("employee");
@@ -142,8 +143,8 @@ helper.loadModels().then(function() {
                     //remove the last employee
                     //since there are three
                     company.removeEmployee(2).save()
-                            .chain(hitch(company, "reload"), hitch(this, "callback"))
-                            .then(hitch(this, "callback", null), hitch(this, "callback"));
+                        .chain(hitch(company, "reload"), hitch(this, "callback"))
+                        .then(hitch(this, "callback", null), hitch(this, "callback"));
                 },
 
                 "the company should have two employees " : function(company) {
@@ -180,8 +181,8 @@ helper.loadModels().then(function() {
                     //remove the last employee
                     //since there are three
                     company.spliceEmployees(0, 2).save()
-                            .chain(hitch(company, "reload"), hitch(this, "callback"))
-                            .then(hitch(this, "callback", null), hitch(this, "callback"));
+                        .chain(hitch(company, "reload"), hitch(this, "callback"))
+                        .then(hitch(this, "callback", null), hitch(this, "callback"));
                 },
 
                 "the company should have 0 employees " : function(company) {
@@ -252,19 +253,20 @@ helper.loadModels().then(function() {
         "When deleting a company" : {
             topic : function() {
                 Company.one().chain(
-                        function(c) {
-                            return c.remove();
-                        }).chain(hitch(Employee, "count"), hitch(this, "callback")).then(hitch(this, "callback", null), hitch(this, "callback"));
+                    function(c) {
+                        return c.remove();
+                    }).chain(hitch(Employee, "count"), hitch(this, "callback")).then(hitch(this, "callback", null), hitch(this, "callback"));
             },
 
             " the company should no employees " : function(count) {
                 assert.equal(count, 0);
-                helper.dropModels();
             }
         }
     });
 
 
-    suite.run({reporter : require("vows/reporters/spec")});
+    suite.run({reporter : require("vows/reporters/spec")}, function(){
+        helper.dropModels().then(comb.hitch(ret, "callback"), comb.hitch(ret, "errback"))
+    });
+}, comb.hitch(ret, "errback"));
 
-});

@@ -1,12 +1,12 @@
 var vows = require('vows'),
-        assert = require('assert'),
-        helper = require("./data/manyToMany.lazy.models"),
-        moose = require("../lib"),
-        comb = require("comb"),
-        hitch = comb.hitch;
+    assert = require('assert'),
+    helper = require("./data/manyToMany.lazy.models"),
+    moose = require("index"),
+    comb = require("comb"),
+    hitch = comb.hitch;
 
+var ret = (module.exports = exports = new comb.Promise());
 var gender = ["M", "F"];
-
 helper.loadModels().then(function() {
     var Company = moose.getModel("company"), Employee = moose.getModel("employee"), CompanyEmployee = moose.getModel("companyEmployee");
     var suite = vows.describe("Many to Many lazy association ");
@@ -112,11 +112,11 @@ helper.loadModels().then(function() {
                         street : "Street " + 3,
                         city : "City " + 3
                     })).chain(hitch(company, "save"), hitch(this, "callback"))
-                            .chain(hitch(company, "reload"), hitch(this, "callback"))
-                            .chain(
-                            function(company) {
-                                return company.employees;
-                            }, hitch(this, "callback")).then(hitch(this, "callback", null), hitch(this, "callback"));
+                        .chain(hitch(company, "reload"), hitch(this, "callback"))
+                        .chain(
+                        function(company) {
+                            return company.employees;
+                        }, hitch(this, "callback")).then(hitch(this, "callback", null), hitch(this, "callback"));
                 },
 
                 "the company should have three employees " : function(emps) {
@@ -144,11 +144,11 @@ helper.loadModels().then(function() {
                     //since there are three
 
                     company.removeEmployee(2)
-                            .chain(hitch(company, "save"), hitch(this, "callback"))
-                            .chain(function() {
-                        return company.reload();
-                    }, hitch(this, "callback"))
-                            .then(hitch(this, function(newComp) {
+                        .chain(hitch(company, "save"), hitch(this, "callback"))
+                        .chain(function() {
+                            return company.reload();
+                        }, hitch(this, "callback"))
+                        .then(hitch(this, function(newComp) {
                         newComp.employees.then(hitch(this, "callback", null), hitch(this, "callback"));
                     }), hitch(this, "callback"));
                 },
@@ -177,9 +177,9 @@ helper.loadModels().then(function() {
                     //remove the last employee
                     //since there are three
                     company.spliceEmployees(0, 2)
-                            .chain(hitch(company, "save"), hitch(this, "callback"))
-                            .chain(hitch(company, "reload"), hitch(this, "callback"))
-                            .then(hitch(this, function(newComp) {
+                        .chain(hitch(company, "save"), hitch(this, "callback"))
+                        .chain(hitch(company, "reload"), hitch(this, "callback"))
+                        .then(hitch(this, function(newComp) {
                         newComp.employees.then(hitch(this, "callback", null), hitch(this, "callback"));
                     }), hitch(this, "callback"));
                 },
@@ -229,8 +229,8 @@ helper.loadModels().then(function() {
                             city : "City " + 3
                         })
                     ]).chain(hitch(company, "save"), hitch(this, "callback"))
-                            .chain(hitch(company, "reload"), hitch(this, "callback"))
-                            .then(hitch(this, function(newComp) {
+                        .chain(hitch(company, "reload"), hitch(this, "callback"))
+                        .then(hitch(this, function(newComp) {
                         newComp.employees.then(hitch(this, "callback", null), hitch(this, "callback"));
                     }), hitch(this, "callback"));
                 },
@@ -252,25 +252,23 @@ helper.loadModels().then(function() {
         "When deleting a company" : {
             topic : function() {
                 Company.one().chain(
-                        function(c) {
-                            return c.remove();
-                        }, hitch(this, "callback")).chain(hitch(Employee, "count"), hitch(this, "callback")).then(hitch(this, "callback", null), hitch(this, "callback"));
+                    function(c) {
+                        return c.remove();
+                    }, hitch(this, "callback")).chain(hitch(Employee, "count"), hitch(this, "callback")).then(hitch(this, "callback", null), hitch(this, "callback"));
             },
 
             " the there should still be 6 employees " : function(count) {
                 assert.equal(count, 6);
-                helper.dropModels();
             }
         }
     });
 
 
-    suite.run({reporter : require("vows/reporters/spec")});
+    suite.run({reporter : require("vows/reporters/spec")}, function(){
+        helper.dropModels().then(comb.hitch(ret, "callback"), comb.hitch(ret, "errback"))
+    });
+}, comb.hitch(ret, "errback"));
 
-}, function(err) {
-    console.log(err);
-    throw err;
-});
 
 
 

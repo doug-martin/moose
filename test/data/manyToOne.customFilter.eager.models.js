@@ -1,4 +1,4 @@
-var moose = require("../../lib"),
+var moose = require("index"),
         mysql = moose.adapters.mysql,
         types = mysql.types,
         comb = require("comb");
@@ -7,7 +7,7 @@ exports.loadModels = function() {
     var ret = new comb.Promise();
     var options = {
         connection : {user : "test", password : "testpass", database : 'test'},
-        dir : "./data/migrations/manyToOne",
+        dir : __dirname + "/migrations/manyToOne",
         start : 0,
         up : true
     };
@@ -38,7 +38,7 @@ exports.dropModels = function() {
     var ret = new comb.Promise();
     var options = {
         connection : {user : "test", password : "testpass", database : 'test'},
-        dir : "./data/migrations/manyToOne",
+        dir : __dirname + "/migrations/manyToOne",
         start : 0,
         up : false
     };

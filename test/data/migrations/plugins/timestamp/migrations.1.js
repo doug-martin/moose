@@ -1,4 +1,4 @@
-var moose = require("../../../../../lib"),
+var moose = require("index"),
         mysql = moose.adapters.mysql,
         types = mysql.types;
 

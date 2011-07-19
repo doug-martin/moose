@@ -1,11 +1,12 @@
 var vows = require('vows'),
 		comb = require("comb"),
 		assert = require('assert'),
-		moose = require("../lib"),
+		moose = require("index"),
 		helper = require("./data/dataset");
+
+var ret = (module.exports = exports = new comb.Promise());
 // Create a Test Suite
 moose.createConnection({user : "test", password : "testpass", database : 'test'});
-
 moose.execute(helper.sql).then(function(results) {
 	var suite = vows.describe('Dataset');
 	suite.addBatch({
@@ -690,13 +691,12 @@ moose.execute(helper.sql).then(function(results) {
 						for (var i in topic) {
 							assert.equal(topic[i].firstname, names[i]);
 						}
-						helper.dropModels();
 					}
 				}
 			});
 
-	suite.run({reporter : require("vows/reporters/spec")});
-}, function(err) {
-	throw err;
-});
+	suite.run({reporter : require("vows/reporters/spec")}, function(){
+        helper.dropModels().then(comb.hitch(ret, "callback"), comb.hitch(ret, "errback"))
+    });
+}, comb.hitch(ret, "errback"));
 

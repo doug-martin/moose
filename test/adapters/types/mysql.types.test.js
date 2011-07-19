@@ -1,9 +1,12 @@
 var vows = require('vows'),
-        assert = require('assert'),
-        adapter = require("../../../lib").adapters.mysql,
-        comb = require("comb"),
-        types = adapter.types;
+    assert = require('assert'),
+    moose = require("index"),
+    adapter = moose.adapters.mysql,
+    comb = require("comb"),
+    types = adapter.types;
 
+
+var ret = (module.exports = exports = new comb.Promise());
 var suite = vows.describe('mysql types');
 
 /*
@@ -1037,4 +1040,4 @@ suite.addBatch({
 });
 
 
-suite.export(module);
+suite.run({reporter : require("vows/reporters/spec")}, comb.hitch(ret, "callback"));

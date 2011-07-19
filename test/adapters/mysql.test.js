@@ -1,10 +1,13 @@
 var vows = require('vows'),
-        assert = require('assert'),
-        moose = require("../../lib"),
-        Mysql = moose.adapters.mysql,
-        Client = require('mysql').Client,
-        db = new Client();
+    assert = require('assert'),
+    moose = require("index"),
+    Mysql = moose.adapters.mysql,
+    Client = require('mysql').Client,
+    comb = require("comb"),
+    db = new Client();
 // Create a Test Suite
+
+var ret = (module.exports = exports = new comb.Promise());
 var suite = vows.describe('mysql adapter');
 suite.addBatch({
     'when finding all records with all fields': {
@@ -1535,4 +1538,4 @@ suite.addBatch({
     }
 });
 
-suite.export(module);
+suite.run({reporter : require("vows/reporters/spec")}, comb.hitch(ret, "callback"));

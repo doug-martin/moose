@@ -1,10 +1,11 @@
 var vows = require('vows'),
-        assert = require('assert'),
-        moose = require("../../lib"),
-        comb = require("comb"),
-        hitch = comb.hitch,
-        helper = require("../data/plugins.models");
+    assert = require('assert'),
+    moose = require("index"),
+    comb = require("comb"),
+    hitch = comb.hitch,
+    helper = require("../data/plugins.models");
 
+var ret = (module.exports = exports = new comb.Promise());
 helper.loadCustomModels().then(function() {
     Employee = moose.getModel("employee");
     var suite = vows.describe("TimeStampPlugin custom columns");
@@ -52,11 +53,12 @@ helper.loadCustomModels().then(function() {
                     assert.isNotNull(topic.updatedAt);
                     assert.instanceOf(topic.updatedAt, Date);
                     assert.notDeepEqual(topic.updatedAt, topic.createdAt);
-                    helper.dropCustomModels();
                 }
             }
         }
     });
 
-    suite.run({reporter : require("vows/reporters/spec")});
-});
+   suite.run({reporter : require("vows/reporters/spec")}, function() {
+        helper.dropCustomModels().then(comb.hitch(ret, "callback"), comb.hitch(ret, "errback"))
+    });
+}, comb.hitch(ret, "errback"));

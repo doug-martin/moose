@@ -1,4 +1,4 @@
-var moose = require("../../lib"), comb = require("comb");
+var moose = require("index"), comb = require("comb");
 
 exports.sql = "DROP TABLE IF EXISTS works;"
         + "DROP TABLE IF EXISTS company;"

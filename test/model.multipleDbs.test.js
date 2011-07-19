@@ -1,13 +1,13 @@
 var vows = require('vows'),
 		assert = require('assert'),
 		helper = require("./data/model.multipleDatabase"),
-		moose = require("../lib"),
+		moose = require("index"),
 		comb = require("comb"),
 		hitch = comb.hitch;
 
+
+var ret = (module.exports = exports = new comb.Promise());
 var suite = vows.describe("Model object with multple databases");
-
-
 helper.loadModels().then(function() {
 	var Employee = moose.getModel("employee");
 	//Get employee from other database
@@ -756,15 +756,14 @@ helper.loadModels().then(function() {
 					" all records should be updated" : function(emp) {
 						assert.instanceOf(emp, Employee2);
 						assert.equal(emp.firstname, "dougie2");
-						helper.dropModels();
 					}
 				}
 			});
 
 
-	suite.run({reporter : require("vows/reporters/spec")});
-}, function(err) {
-	throw err;
-});
+	suite.run({reporter : require("vows/reporters/spec")}, function(){
+        helper.dropModels().then(comb.hitch(ret, "callback"), comb.hitch(ret, "errback"))
+    });
+}, comb.hitch(ret, "errback"));
 
 

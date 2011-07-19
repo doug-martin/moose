@@ -1,10 +1,11 @@
 var vows = require('vows'),
-        assert = require('assert'),
-        moose = require("../../lib"),
-        comb = require("comb"),
-        hitch = comb.hitch,
-        helper = require("../data/plugins.models");
+    assert = require('assert'),
+    moose = require("index"),
+    comb = require("comb"),
+    hitch = comb.hitch,
+    helper = require("../data/plugins.models");
 
+var ret = (module.exports = exports = new comb.Promise());
 helper.loadUpdateOnCreateModels().then(function() {
     Employee = moose.getModel("employee");
     var suite = vows.describe("TimeStampPlugin updateOnCreate");
@@ -33,10 +34,11 @@ helper.loadUpdateOnCreateModels().then(function() {
                 assert.deepEqual(topic.updated, topic.created);
                 assert.instanceOf(topic.updated, Date);
                 assert.instanceOf(topic.created, Date);
-                helper.dropUpdateOnCreateModels();
             }
         }
     });
 
-    suite.run({reporter : require("vows/reporters/spec")});
-});
+    suite.run({reporter : require("vows/reporters/spec")}, function() {
+        helper.dropUpdateOnCreateModels().then(comb.hitch(ret, "callback"), comb.hitch(ret, "errback"))
+    });
+}, comb.hitch(ret, "errback"));

@@ -1,4 +1,4 @@
-var moose = require("../../lib"),
+var moose = require("index"),
         mysql = moose.adapters.mysql,
         types = mysql.types,
         comb = require("comb");
@@ -7,7 +7,7 @@ exports.loadModels = function() {
     var ret = new comb.Promise();
     var options = {
         connection : {user : "test", password : "testpass", database : 'test'},
-        dir : "./data/migrations/manyToMany",
+        dir : __dirname + "/migrations/manyToMany",
         start : 0,
         up : true
     };
@@ -15,8 +15,8 @@ exports.loadModels = function() {
     moose.migrate(options)
             .chain(comb.hitch(moose, "loadSchemas", ["company", "employee", "companyEmployee"]), comb.hitch(ret, "errback"))
             .then(function(company, employee, companyEmployee) {
-        var Company = moose.addModel(company);
-        var Employee = moose.addModel(employee);
+        var Company = moose.addModel(moose.getSchema("company"));
+        var Employee = moose.addModel(moose.getSchema("employee"));
         var CompanyEmployee = moose.addModel(companyEmployee);
         //define associations
 
@@ -51,7 +51,7 @@ exports.dropModels = function() {
     var ret = new comb.Promise();
     var options = {
         connection : {user : "test", password : "testpass", database : 'test'},
-        dir : "./data/migrations/manyToMany",
+        dir : __dirname + "/migrations/manyToMany",
         start : 0,
         up : false
     };
