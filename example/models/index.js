@@ -15,7 +15,7 @@ exports.load = function(){
       require("./Airport");
       require("./CanLand");
       require("./AirplaneType");
-      require("./AirPlane");
+      require("./Airplane");
       require("./FlightLeg");
       require("./LegInstance");
       require("./Flight");
