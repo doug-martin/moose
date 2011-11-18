@@ -43,7 +43,7 @@ helper.loadModels().then(function() {
             " the company should have employees " : {
                 topic : function(company) {
                     var emps = company.employees;
-                    assert.length(emps, 2);
+                    assert.lengthOf(emps, 2);
                     emps.forEach(function(emp, i) {
                         assert.equal(i + 1, emp.id);
                     });
@@ -58,7 +58,7 @@ helper.loadModels().then(function() {
                     "the employees company should not be loaded yet" : {
 
                         topic : function(emps) {
-                            assert.length(emps, 2);
+                            assert.lengthOf(emps, 2);
                             assert.equal(1, emps[0].id);
                             assert.equal(2, emps[1].id);
                             emps[0].company.then(hitch(this, "callback", null));
@@ -89,7 +89,7 @@ helper.loadModels().then(function() {
 
             " the company should have employees " : function(company) {
                 var emps = company.employees;
-                assert.length(emps, 2);
+                assert.lengthOf(emps, 2);
                 var ids = [2,1];
                 emps.forEach(function(emp, i) {
                     assert.equal(ids[i], emp.id);
@@ -110,7 +110,7 @@ helper.loadModels().then(function() {
 
                 "the company should have three employees " : function(company) {
                     var emps = company.employees;
-                    assert.length(emps, 3);
+                    assert.lengthOf(emps, 3);
                     var ids = [3, 2,1];
                     emps.forEach(function(emp, i) {
                         assert.equal(emp.id, ids[i]);
@@ -130,7 +130,7 @@ helper.loadModels().then(function() {
 
             " the company should have employees " : function(company) {
                 var emps = company.employees;
-                assert.length(emps, 3);
+                assert.lengthOf(emps, 3);
                 ids = [3,2,1];
                 emps.forEach(function(emp, i) {
                     assert.equal(ids[i], emp.id);
@@ -148,7 +148,7 @@ helper.loadModels().then(function() {
 
                 "the company should have two employees " : function(company) {
                     var emps = company.employees;
-                    assert.length(emps, 2);
+                    assert.lengthOf(emps, 2);
                     var ids = [3,2];
                     emps.forEach(function(emp, i) {
                         assert.equal(ids[i], emp.id);
@@ -168,7 +168,7 @@ helper.loadModels().then(function() {
 
             " the company should have employees " : function(company) {
                 var emps = company.employees;
-                assert.length(emps, 2);
+                assert.lengthOf(emps, 2);
                 ids = [3,2];
                 emps.forEach(function(emp, i) {
                     assert.equal(ids[i], emp.id);
@@ -186,7 +186,7 @@ helper.loadModels().then(function() {
 
                 "the company should have 0 employees " : function(company) {
                     var emps = company.employees;
-                    assert.length(emps, 0);
+                    assert.lengthOf(emps, 0);
                 }
             }
         }
@@ -201,7 +201,7 @@ helper.loadModels().then(function() {
 
             " the company should no employees " : function(company) {
                 var emps = company.employees;
-                assert.length(emps, 0);
+                assert.lengthOf(emps, 0);
             },
 
             " and add an employees" : {
@@ -239,7 +239,7 @@ helper.loadModels().then(function() {
                 "the company should have 3 employees " : function(company) {
                     var emps = company.employees;
                     var ids = [6,5,4];
-                    assert.length(emps, 3);
+                    assert.lengthOf(emps, 3);
                     emps.forEach(function(emp, i) {
                         assert.equal(emp.id, ids[i]);
                     });
@@ -265,6 +265,6 @@ helper.loadModels().then(function() {
     });
 
 
-    suite.run({reporter : require("vows/reporters/spec")});
+    suite.run({reporter : require("vows").reporter.spec});
 
 });

@@ -5,7 +5,7 @@ module.exports = exports = (Flight = moose.addModel(moose.getSchema("flight"), {
     plugins : [ expressPlugin],
     instance :{
         toObject : function() {
-            var obj = this.super(arguments);
+            var obj = this._super(arguments);
             obj.legs = this.legs.map(function(l) {
                 return l.toObject();
             });

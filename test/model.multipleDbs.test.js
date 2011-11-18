@@ -165,7 +165,7 @@ helper.loadModels().then(function() {
 					},
 
 					" and get a list of one employees" : function(t) {
-						assert.length(t, 1);
+						assert.lengthOf(t, 1);
 						var emp = t[0];
 						assert.instanceOf(emp, Employee);
 						assert.equal("doug", emp.firstname);
@@ -193,7 +193,7 @@ helper.loadModels().then(function() {
 					},
 
 					" and get a list of one employees" : function(t) {
-						assert.length(t, 1);
+						assert.lengthOf(t, 1);
 						var emp = t[0];
 						assert.instanceOf(emp, Employee2);
 						assert.equal("doug2", emp.firstname);
@@ -269,7 +269,7 @@ helper.loadModels().then(function() {
 
 					"and return employees" : function(topic) {
 						var i = 1;
-						assert.length(topic, 6);
+						assert.lengthOf(topic, 6);
 						topic.forEach(function(t) {
 							assert.instanceOf(t, Employee);
 							assert.equal(i++, t.id);
@@ -310,7 +310,7 @@ helper.loadModels().then(function() {
 					},
 
 					"and return 21 employees" : function(topic) {
-						assert.length(topic, 21);
+						assert.lengthOf(topic, 21);
 						topic.forEach(function(e) {
 							assert.instanceOf(e, Employee);
 						});
@@ -365,7 +365,7 @@ helper.loadModels().then(function() {
 					},
 
 					"and return 6 employees" : function(topic) {
-						assert.length(topic, 6);
+						assert.lengthOf(topic, 6);
 						topic.forEach(function(e, i) {
 							assert.instanceOf(e, Employee);
 							assert.equal(i + 1, e.id);
@@ -423,7 +423,7 @@ helper.loadModels().then(function() {
 
 					"and return employees" : function(topic) {
 						var i = 1;
-						assert.length(topic, 6);
+						assert.lengthOf(topic, 6);
 						topic.forEach(function(t) {
 							assert.instanceOf(t, Employee2);
 							assert.equal(i++, t.id);
@@ -464,7 +464,7 @@ helper.loadModels().then(function() {
 					},
 
 					"and return 21 employees" : function(topic) {
-						assert.length(topic, 21);
+						assert.lengthOf(topic, 21);
 						topic.forEach(function(e) {
 							assert.instanceOf(e, Employee2);
 						});
@@ -520,7 +520,7 @@ helper.loadModels().then(function() {
 					},
 
 					"and return 6 employees" : function(topic) {
-						assert.length(topic, 6);
+						assert.lengthOf(topic, 6);
 						topic.forEach(function(e, i) {
 							assert.instanceOf(e, Employee2);
 							assert.equal(i + 1, e.id);
@@ -705,7 +705,7 @@ helper.loadModels().then(function() {
 					},
 
 					" all records should be updated" : function(records) {
-						assert.length(records, 21);
+						assert.lengthOf(records, 21);
 						records.forEach(function(r) {
 							assert.equal(r.firstname, "doug");
 						});
@@ -722,7 +722,7 @@ helper.loadModels().then(function() {
 					},
 
 					" all records should be updated" : function(records) {
-						assert.length(records, 21);
+						assert.lengthOf(records, 21);
 						records.forEach(function(r) {
 							assert.equal(r.firstname, "doug2");
 						});
@@ -762,7 +762,7 @@ helper.loadModels().then(function() {
 			});
 
 
-	suite.run({reporter : require("vows/reporters/spec")});
+	suite.run({reporter : require("vows").reporter.spec});
 }, function(err) {
 	throw err;
 });

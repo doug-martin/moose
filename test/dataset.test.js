@@ -97,7 +97,7 @@ moose.execute(helper.sql).then(function(results) {
 
 					'we get ': function (topic) {
 						var i = 1;
-						assert.length(topic, 6);
+						assert.lengthOf(topic, 6);
 						topic.forEach(function(t) {
 							assert.equal(i++, t.eid);
 						});
@@ -114,7 +114,7 @@ moose.execute(helper.sql).then(function(results) {
 
 					'we get ': function (topic) {
 						var i = 7;
-						assert.length(topic, 15);
+						assert.lengthOf(topic, 15);
 						topic.forEach(function(t) {
 							assert.equal(i++, t.eid);
 						});
@@ -133,7 +133,7 @@ moose.execute(helper.sql).then(function(results) {
 
 					'we get ': function (topic) {
 						var i = 1;
-						assert.length(topic, 21);
+						assert.lengthOf(topic, 21);
 						topic.forEach(function(t) {
 							assert.isUndefined(t.eid);
 							assert.isUndefined(t.company_name);
@@ -156,7 +156,7 @@ moose.execute(helper.sql).then(function(results) {
 					},
 
 					'we get ': function (topic) {
-						assert.length(topic, 1);
+						assert.lengthOf(topic, 1);
 						var record = topic[0];
 						assert.equal(record.eid, 1);
 					}
@@ -171,7 +171,7 @@ moose.execute(helper.sql).then(function(results) {
 					},
 
 					'we get ': function (topic) {
-						assert.length(topic, 1);
+						assert.lengthOf(topic, 1);
 						var record = topic[0];
 						assert.equal(record.eid, 1);
 					}
@@ -188,7 +188,7 @@ moose.execute(helper.sql).then(function(results) {
 					},
 
 					'we get ': function (topic) {
-						assert.length(topic, 20);
+						assert.lengthOf(topic, 20);
 					}
 				},
 
@@ -201,7 +201,7 @@ moose.execute(helper.sql).then(function(results) {
 					},
 
 					'we get ': function (topic) {
-						assert.length(topic, 20);
+						assert.lengthOf(topic, 20);
 					}
 				}
 			});
@@ -216,7 +216,7 @@ moose.execute(helper.sql).then(function(results) {
 					},
 
 					'we get ': function (topic) {
-						assert.length(topic, 20);
+						assert.lengthOf(topic, 20);
 					}
 				},
 
@@ -229,7 +229,7 @@ moose.execute(helper.sql).then(function(results) {
 					},
 
 					'we get ': function (topic) {
-						assert.length(topic, 20);
+						assert.lengthOf(topic, 20);
 					}
 				}
 			});
@@ -244,7 +244,7 @@ moose.execute(helper.sql).then(function(results) {
 					},
 
 					'we get ': function (topic) {
-						assert.length(topic, 21);
+						assert.lengthOf(topic, 21);
 					}
 				},
 
@@ -257,7 +257,7 @@ moose.execute(helper.sql).then(function(results) {
 					},
 
 					'we get ': function (topic) {
-						assert.length(topic, 21);
+						assert.lengthOf(topic, 21);
 					}
 				}
 			});
@@ -272,7 +272,7 @@ moose.execute(helper.sql).then(function(results) {
 					},
 
 					'we get ': function (topic) {
-						assert.length(topic, 0);
+						assert.lengthOf(topic, 0);
 					}
 				},
 
@@ -285,7 +285,7 @@ moose.execute(helper.sql).then(function(results) {
 					},
 
 					'we get ': function (topic) {
-						assert.length(topic, 0);
+						assert.lengthOf(topic, 0);
 					}
 				}
 			});
@@ -300,7 +300,7 @@ moose.execute(helper.sql).then(function(results) {
 					},
 
 					'we get ': function (topic) {
-						assert.length(topic, 1);
+						assert.lengthOf(topic, 1);
 					}
 				},
 
@@ -313,7 +313,7 @@ moose.execute(helper.sql).then(function(results) {
 					},
 
 					'we get ': function (topic) {
-						assert.length(topic, 1);
+						assert.lengthOf(topic, 1);
 					}
 				}
 			});
@@ -328,7 +328,7 @@ moose.execute(helper.sql).then(function(results) {
 					},
 
 					'we get ': function (topic) {
-						assert.length(topic, 1);
+						assert.lengthOf(topic, 1);
 					}
 				},
 
@@ -341,7 +341,7 @@ moose.execute(helper.sql).then(function(results) {
 					},
 
 					'we get ': function (topic) {
-						assert.length(topic, 1);
+						assert.lengthOf(topic, 1);
 					}
 				}
 			});
@@ -507,7 +507,7 @@ moose.execute(helper.sql).then(function(results) {
 					},
 
 					'we get ': function (topic) {
-						assert.length(topic, 2);
+						assert.lengthOf(topic, 2);
 						var rec1 = topic[0];
 						var rec2 = topic[1];
 						assert.equal(rec1.flag, 0);
@@ -530,7 +530,7 @@ moose.execute(helper.sql).then(function(results) {
 						var names = ["Ann","Ann","Carole","Dan","Don","Eric","Jacky","John","Kim",
 							"Mary","Mary","Mike","Pam","Pat","Paul","Peter","Ron","Susan","Susan",
 							"Susanne","Tom"];
-						assert.length(topic, 21);
+						assert.lengthOf(topic, 21);
 						topic.forEach(function(rec, i) {
 							assert.equal(rec.firstname, names[i]);
 						});
@@ -548,7 +548,7 @@ moose.execute(helper.sql).then(function(results) {
 						var names = ["Ann","Ann","Carole","Dan","Don","Eric","Jacky","John","Kim",
 							"Mary","Mary","Mike","Pam","Pat","Paul","Peter","Ron","Susan","Susan",
 							"Susanne","Tom"].reverse();
-						assert.length(topic, 21);
+						assert.lengthOf(topic, 21);
 						topic.forEach(function(rec, i) {
 							assert.equal(rec.firstname, names[i]);
 						});
@@ -569,7 +569,7 @@ moose.execute(helper.sql).then(function(results) {
 						var names = ["Ann","Ann","Carole","Dan","Don","Eric","Jacky","John","Kim",
 							"Mary","Mary","Mike","Pam","Pat","Paul","Peter","Ron","Susan","Susan",
 							"Susanne","Tom"];
-						assert.length(topic, 21);
+						assert.lengthOf(topic, 21);
 						topic.forEach(function(rec, i) {
 							assert.equal(rec.firstname, names[i]);
 							assert.equal(rec.lastname, lastNames[i]);
@@ -591,7 +591,7 @@ moose.execute(helper.sql).then(function(results) {
 						var names = ["Ann","Ann","Carole","Dan","Don","Eric","Jacky","John","Kim",
 							"Mary","Mary","Mike","Pam","Pat","Paul","Peter","Ron","Susan","Susan",
 							"Susanne","Tom"];
-						assert.length(topic, 21);
+						assert.lengthOf(topic, 21);
 						topic.forEach(function(rec, i) {
 							assert.equal(rec.firstname, names[i]);
 							assert.equal(rec.lastname, lastNames[i]);
@@ -625,7 +625,7 @@ moose.execute(helper.sql).then(function(results) {
 					},
 
 					'we get ': function (topic) {
-						assert.length(topic, 1);
+						assert.lengthOf(topic, 1);
 						topic = topic[0];
 						assert.equal(topic.eid, 1);
 						assert.equal(topic.gender, "F");
@@ -643,7 +643,7 @@ moose.execute(helper.sql).then(function(results) {
 					},
 
 					'we get ': function (topic) {
-						assert.length(topic, 1);
+						assert.lengthOf(topic, 1);
 						topic = topic[0];
 						assert.equal(topic.eid, 1);
 						assert.equal(topic.gender, "F");
@@ -668,7 +668,7 @@ moose.execute(helper.sql).then(function(results) {
 						var names = ["Ann","Carole","Dan","Don","Eric","Jacky","John","Kim",
 							"Mary","Mike","Pam","Pat","Paul","Peter","Ron","Susan",
 							"Susanne","Tom"].reverse();
-						assert.length(topic, names.length);
+						assert.lengthOf(topic, names.length);
 						for (var i in topic) {
 							assert.equal(topic[i].firstname, names[i]);
 						}
@@ -686,7 +686,7 @@ moose.execute(helper.sql).then(function(results) {
 
 					'we get ': function (topic) {
 						var names = ["Ann","Carole","Dan","Don","Eric"].reverse();
-						assert.length(topic, names.length);
+						assert.lengthOf(topic, names.length);
 						for (var i in topic) {
 							assert.equal(topic[i].firstname, names[i]);
 						}
@@ -695,7 +695,7 @@ moose.execute(helper.sql).then(function(results) {
 				}
 			});
 
-	suite.run({reporter : require("vows/reporters/spec")});
+	suite.run({reporter : require("vows").reporter.spec});
 }, function(err) {
 	throw err;
 });

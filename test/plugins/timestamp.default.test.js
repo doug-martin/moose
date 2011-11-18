@@ -57,5 +57,5 @@ helper.loadDefaultModels().then(function() {
         }
     });
 
-    suite.run({reporter : require("vows/reporters/spec")});
+    suite.run({reporter : require("vows").reporter.spec});
 });

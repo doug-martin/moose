@@ -37,7 +37,7 @@ suite.addBatch({
 
 					"only company should be created" : {
 						topic : function(res) {
-							assert.length(res, 1);
+							assert.lengthOf(res, 1);
 							res = res[0];
 							assert.isNotNull(res.Tables_in_test);
 							assert.equal(res.Tables_in_test, "company");
@@ -63,7 +63,7 @@ suite.addBatch({
 
 								"the result should be empty" : function(res) {
 									assert.isNotNull(res.Tables_in_test);
-									assert.length(res, 0);
+									assert.lengthOf(res, 0);
 								}
 
 							}
@@ -93,7 +93,7 @@ suite.addBatch({
 
 					"only employee should be created " : {
 						topic : function(res) {
-							assert.length(res, 1);
+							assert.lengthOf(res, 1);
 							res = res[0];
 							assert.isNotNull(res.Tables_in_test);
 							assert.equal(res.Tables_in_test, "employee");
@@ -119,7 +119,7 @@ suite.addBatch({
 
 								"the result should be empty" : function(res) {
 									assert.isNotNull(res.Tables_in_test);
-									assert.length(res, 0);
+									assert.lengthOf(res, 0);
 								}
 
 							}
@@ -149,7 +149,7 @@ suite.addBatch({
 
 					"only employee and company should be created" : {
 						topic : function(res) {
-							assert.length(res, 2);
+							assert.lengthOf(res, 2);
 							var resOne = res[0];
 							var resTwo = res[1];
 							assert.equal(resOne.Tables_in_test, "company");
@@ -176,7 +176,7 @@ suite.addBatch({
 
 								"the result should be empty" : function(res) {
 									assert.isNotNull(res.Tables_in_test);
-									assert.length(res, 0);
+									assert.lengthOf(res, 0);
 								}
 
 							}
@@ -206,7 +206,7 @@ suite.addBatch({
 
 					"only employee and company should be created" : {
 						topic : function(res) {
-							assert.length(res, 4);
+							assert.lengthOf(res, 4);
 							["company", "companyEmployee", "employee", "works"].forEach(function(table, i) {
 								assert.equal(res[i].Tables_in_test, table);
 							});
@@ -256,7 +256,7 @@ suite.addBatch({
 
 										"the result should be empty" : function(res) {
 											assert.isNotNull(res.Tables_in_test);
-											assert.length(res, 0);
+											assert.lengthOf(res, 0);
 										}
 
 									}
@@ -288,7 +288,7 @@ suite.addBatch({
 
 					"all tables should be created" : {
 						topic : function(res) {
-							assert.length(res, 4);
+							assert.lengthOf(res, 4);
 							["companyEmployee", "companyNew", "employee", "works"].forEach(function(table, i) {
 								assert.equal(res[i].Tables_in_test, table);
 							});
@@ -324,7 +324,7 @@ suite.addBatch({
 
 									"the result should be empty" : function(res) {
 										assert.isNotNull(res.Tables_in_test);
-										assert.length(res, 0);
+										assert.lengthOf(res, 0);
 									},
 
 									"and showing tables in the test2 db" :{
@@ -334,7 +334,7 @@ suite.addBatch({
 
 										"the result should be empty" : function(res) {
 											assert.isNotNull(res.Tables_in_test);
-											assert.length(res, 0);
+											assert.lengthOf(res, 0);
 										}
 
 									}
@@ -348,7 +348,7 @@ suite.addBatch({
 		});
 
 
-suite.run({reporter : require("vows/reporters/spec")});
+suite.run({reporter : require("vows").reporter.spec});
 
 
 

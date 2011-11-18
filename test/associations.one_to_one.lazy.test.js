@@ -111,7 +111,7 @@ helper.loadModels().then(function() {
 
     });
 
-    suite.run({reporter : require("vows/reporters/spec")});
+    suite.run({reporter : require("vows").reporter.spec});
 
 }, function(err) {
     console.log(err);

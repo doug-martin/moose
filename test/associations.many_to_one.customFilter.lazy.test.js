@@ -54,7 +54,7 @@ helper.loadModels().then(function() {
                 },
 
                 "there should be two " : function(emps) {
-                    assert.length(emps, 2);
+                    assert.lengthOf(emps, 2);
                     emps.forEach(function(emp, i) {
                         assert.equal(emp.id, i + 1);
                         assert.equal(emp.city, "Omaha");
@@ -68,7 +68,7 @@ helper.loadModels().then(function() {
                 },
 
                 "there should be three" : function(emps) {
-                    assert.length(emps, 3);
+                    assert.lengthOf(emps, 3);
                     emps.forEach(function(emp, i) {
                         assert.equal(i + 1, emp.id);
                     });
@@ -86,7 +86,7 @@ helper.loadModels().then(function() {
             "the employees company should not be loaded yet " : {
 
                 topic : function(emps) {
-                    assert.length(emps, 3);
+                    assert.lengthOf(emps, 3);
                     assert.equal(1, emps[0].id);
                     assert.equal(2, emps[1].id);
                     assert.equal(3, emps[2].id);
@@ -112,6 +112,6 @@ helper.loadModels().then(function() {
         }
     });
 
-    suite.run({reporter : require("vows/reporters/spec")});
+    suite.run({reporter : require("vows").reporter.spec});
 
 });

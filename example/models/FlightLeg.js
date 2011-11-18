@@ -4,7 +4,7 @@ module.exports = exports = (FlightLeg = moose.addModel(moose.getSchema("flight_l
     plugins : [moose.plugins.CachePlugin],
     instance : {
         toObject : function(){
-            var obj = this.super(arguments);
+            var obj = this._super(arguments);
             delete obj.departureCode;
             delete obj.arrivalCode;
             obj.departs = this.departs.toObject();

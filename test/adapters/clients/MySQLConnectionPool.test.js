@@ -22,7 +22,7 @@ suite.addBatch({
 
                 "it should close all connections" : function(topic) {
                     topic.endAll().then(function(res) {
-                        assert.length(res, 1);
+                        assert.lengthOf(res, 1);
                         assert.equal(res[0][0], 0);
                     });
 
@@ -56,7 +56,7 @@ suite.addBatch({
 
                 "it should close all connections" : function(topic) {
                     topic.endAll().then(function(res) {
-                        assert.length(res, 3);
+                        assert.lengthOf(res, 3);
                         assert.equal(res[0][0], 0);
                     });
 
@@ -98,7 +98,7 @@ suite.addBatch({
 
                 "it should close all connections" : function(topic) {
                     topic.endAll().then(function(res) {
-                        assert.length(res, 3);
+                        assert.lengthOf(res, 3);
                         assert.equal(res[0][0], 0);
                     });
 
@@ -106,4 +106,4 @@ suite.addBatch({
             }
         });
 
-suite.run({reporter : require("vows/reporters/spec")});
+suite.run({reporter : require("vows").reporter.spec});
