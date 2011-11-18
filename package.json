@@ -1,7 +1,7 @@
 {
     "name": "moose",
     "description": "A node orm",
-    "version": "0.0.2",
+    "version": "0.0.3",
 	"keywords" : ["ORM", "orm", "mysql", "MySQL", "MySql", "Object Relational Model", "Associations", "sql", "database"],
     "repository": {
         "type": "git",
@@ -12,13 +12,13 @@
     "dependencies" :
     {
         "mysql" : "*",
-        "comb" : ">=0.0.2",
+        "comb" : ">=0.0.5",
         "hive-cache" : "*"
     },
     "directories": {
         "lib": "lib"
     },
     "engines": {
-        "node": ">= 0.4.4"
+        "node": ">= 0.6.1"
     }
 }

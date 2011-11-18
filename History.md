@@ -1,3 +1,8 @@
+0.0.3 / 2010-06-11
+==================
+  * Updated comb versions
+  * Updated mysql adapter
+
 0.0.2 / 2010-06-11
 ==================
 
