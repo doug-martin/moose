@@ -3,9 +3,9 @@ var vows = require('vows'),
         moose = require("../../lib"),
         comb = require("comb"),
         hitch = comb.hitch,
-        helper = require("../data/plugins.models");
+        helper = require("../data/timestampPlugin/timestamp.customColumns.models");
 
-helper.loadCustomModels().then(function() {
+helper.loadModels().then(function() {
     Employee = moose.getModel("employee");
     var suite = vows.describe("TimeStampPlugin custom columns");
 
@@ -14,7 +14,6 @@ helper.loadCustomModels().then(function() {
         "when creating an employee" : {
             topic : function() {
                 Employee.save({
-                    id : 1,
                     firstname : "doug",
                     lastname : "martin",
                     midinitial : null,
@@ -33,7 +32,7 @@ helper.loadCustomModels().then(function() {
 
             "the createdAt time stamp should be set" : function(topic) {
                 assert.isNotNull(topic.createdAt);
-                assert.instanceOf(topic.createdAt, Date);
+                assert.instanceOf(topic.createdAt, moose.SQL.DateTime);
             },
 
             "when updating an employee" : {
@@ -50,13 +49,14 @@ helper.loadCustomModels().then(function() {
 
                 "the updated time stamp should be set" : function(topic) {
                     assert.isNotNull(topic.updatedAt);
-                    assert.instanceOf(topic.updatedAt, Date);
+                    assert.instanceOf(topic.updatedAt, moose.SQL.DateTime);
                     assert.notDeepEqual(topic.updatedAt, topic.createdAt);
-                    helper.dropCustomModels();
                 }
             }
         }
     });
 
-    suite.run({reporter : require("vows").reporter.spec});
+    suite.run({reporter : require("vows").reporter.spec}, function() {
+        helper.dropModels();
+    });
 });

@@ -1,24 +1,54 @@
 var moose = require("../../lib"), comb = require("comb");
 
 /*
-* Very simple express routing for a model
-* */
+ * Very simple express routing for a model
+ * */
 module.exports = exports = comb.define(null, {
-   static : {
+    static:{
 
-       route : function(app){
-           app.get("/" + this.tableName + "/:id", comb.hitch(this, function(req, res){
-               var id = req.params.id;
-               this.findById(id).then(function(model){
-                   var response;
-                   if(model){
-                       response = model.toObject();
-                   }else{
-                       response = {error : "Could not find a model with id " + id};
-                   }
-                   res.send(response);
-               });
-           }));
-       }
-   }
+        addRoute:function (route, cb) {
+            this.routes.push(["get", route, cb]);
+        },
+
+        findByIdRoute:function (params) {
+            var ret = new comb.Promise();
+            this.findById(params.id).then(function (model) {
+                ret.callback(model ? model.toObject() : {error:"Could not find a model with id " + id});
+            }, comb.hitch(ret, "errback"));
+            return ret;
+        },
+
+        removeByIdRoute:function (params) {
+            return this.removeById(params.id);
+        },
+
+        __routeProxy:function (cb) {
+            return function (req, res) {
+                comb.when(cb(req.params)).then(comb.hitch(res, "send"), function (err) {
+                    res.send({error:err.message});
+                });
+            }
+        },
+
+        route:function (app) {
+            var routes = this.routes;
+            for (var i in routes) {
+                var route = routes[i];
+                app[route[0]](route[1], this.__routeProxy(route[2]));
+            }
+        },
+
+        getters:{
+            routes:function () {
+                if (comb.isUndefined(this.__routes)) {
+                    var routes = this.__routes = [
+                        ["get", "/" + this.tableName + "/:id", comb.hitch(this, "findByIdRoute")],
+                        ["delete", "/" + this.tableName + "/:id", comb.hitch(this, "removeByIdRoute")]
+                    ];
+                }
+                return this.__routes;
+            }
+
+        }
+    }
 });

@@ -11,7 +11,7 @@
     "main": "index.js",
     "dependencies" :
     {
-        "mysql" : "*",
+        "moose-query" : "0.0.1",
         "comb" : ">=0.0.5",
         "hive-cache" : "*"
     },
